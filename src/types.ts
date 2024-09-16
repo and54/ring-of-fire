@@ -1,31 +1,34 @@
 import { PropsWithChildren } from 'react';
 
+export enum EMaterial {
+  GOLD = 'gold',
+  SILVER = 'silver',
+  ALUMINUM = 'aluminum',
+  COOPER = 'cooper',
+}
+
 export enum EPipeProp {
   RADIUS = 'radius',
   ANGLE = 'angle',
-  FIRST_ARM_LENGTH = 'firstArmLength',
-  SECOND_ARM_LENGTH = 'secondArmLength',
+  SEGMENT_A = 'segmentA',
+  SEGMENT_B = 'segmentB',
+  TUBE_DIAMETER = 'tubeDiameter',
+  MATERIAL = 'tubeMaterial',
 }
 
 export type TPipePropsState = {
   [key in EPipeProp]: number;
 };
 
-export interface ICanvas3d extends PropsWithChildren {}
-
-export interface IPipe {
-  radius: number;
-  angle: number;
-  firstArmLength: number;
-  secondArmLength: number;
+export interface ICanvas3d extends PropsWithChildren {
+  ortho?: boolean;
 }
 
-export interface IConfigSlider {
-  id: string;
-  min: number;
-  max: number;
-  label: string;
-  value: number;
-  onChange: (key: string, value: number) => void;
-  multiplier?: number;
+export interface IPipe {
+  [EPipeProp.RADIUS]: number;
+  [EPipeProp.ANGLE]: number;
+  [EPipeProp.SEGMENT_A]: number;
+  [EPipeProp.SEGMENT_B]: number;
+  [EPipeProp.TUBE_DIAMETER]: [number, number];
+  [EPipeProp.MATERIAL]: EMaterial;
 }

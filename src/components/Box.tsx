@@ -2,7 +2,11 @@ import { MeshProps, useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Mesh } from 'three';
 
-export const Box = (props: MeshProps) => {
+interface IBox extends MeshProps {
+  color?: string;
+}
+
+export const Box = ({ color, ...meshProps }: IBox) => {
   const meshRef = useRef<Mesh | null>(null);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
@@ -11,15 +15,15 @@ export const Box = (props: MeshProps) => {
 
   return (
     <mesh
-      {...props}
+      {...meshProps}
       ref={meshRef}
-      scale={active ? 1.5 : 1}
+      scale={active ? 1 : 0.5}
       onClick={() => setActive(!active)}
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}
     >
-      <boxGeometry args={[0.1, 0.1, 0.1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={color || (hovered ? 'hotpink' : 'orange')} />
     </mesh>
   );
 };
